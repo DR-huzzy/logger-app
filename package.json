@@ -1,10 +1,13 @@
 {
   "name": "logger_app",
   "version": "1.0.0",
+  "prisma": {
+    "schema": "prisma/schema.prisma"
+  },
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +27,9 @@
     "install": "^0.13.0",
     "npm": "^11.8.0",
     "pg": "^8.17.2",
-    "prisma": "^7.3.0"
-  }
+    "prisma": "^7.3.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "type": "module"
 }
