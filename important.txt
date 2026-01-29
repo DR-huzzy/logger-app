@@ -1,0 +1,1 @@
+use [ npx tsx test.js] to run js files instead of [ node test.js] (during imports of .ts files).
