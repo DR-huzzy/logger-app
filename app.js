@@ -1,9 +1,26 @@
-const { timeStamp } = require('console');
-const express = require('express');
-const morgan = require('morgan');
+import express from 'express';
+import morgan from 'morgan';
+import { router } from './Routes/logRouter';
 
-let app = express();
+const logRouter = router;
+
+export let app = express();
+app.use(express.json());
+
 app.use(morgan('dev'));
+
+
+
+// ROUTES
+app.use('/api/v1/logs', logRouter);
+
+
+
+
+
+
+
+
 
 
 // TEST ROUTE
@@ -11,13 +28,7 @@ app.get('/', (req, res) => {
     res.json({ message: 'Hello, World!' });
 })
 
-app.get('/health', (req, res) => {
-    res.json({
-        status: 'Ok',
-        timeStamp: new Date().toISOString()
-    })
-})
 
 
 
-module.exports = app;
+

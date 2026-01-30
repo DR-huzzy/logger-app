@@ -1,7 +1,10 @@
-const dotenv = require('dotenv');
-const app = require('./app');
+import * as path from "path";
+import * as dotenv from "dotenv";
+dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 
-dotenv.config({path: './.env'});
+import { app } from "./app";
+
+//dotenv.config({path: './.env'});
 
 //CREATE SERVER
 
