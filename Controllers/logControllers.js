@@ -78,9 +78,23 @@ export const deleteLog = async (req, res, next) => {
         
         const { id } = req.params;
 
+        const log = await prisma.logEntry.findUnique({
+          where : { id: Number(id)}
+        })
+
+        
+        if (!log) {
+          return res.status(404).json({
+            status: "fail",
+            message: "Log not found"
+          })
+        }
+
+
         await prisma.logEntry.delete({
             where: { id: Number(id) }
         });
+
         res.status(204).json({
             status: 'success',
             data: null,
