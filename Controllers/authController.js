@@ -115,3 +115,22 @@ export const restrict = (role) => {
 }
 
 
+
+export const requirePasscode = (req, res , next ) => {
+
+    const passcode = req.headers["x-admin-passcode"];
+
+    if (!passcode || passcode !== process.env.ADMIN_PASSCODE){
+
+        return res.status(401).json({
+            status: 'fail',
+            message: 'Invalid admin passcode'
+        });
+    }
+
+    next();
+    
+}
+
+
+
