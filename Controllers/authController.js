@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import  jwt  from 'jsonwebtoken';
+import util from "util";
 import { prisma } from '../lib/prisma';
 
 
@@ -62,3 +63,55 @@ export const loginUser =  async (req, res) => {
         });
     }
 }
+
+
+// To authenticate users
+
+export const protect = async (req, res, next) => {
+
+    try {
+        
+        const authHeader = req.headers.authorization;
+
+        if (!authHeader || !authHeader.startsWith("Bearer")){
+
+            return res.status(401).json({
+                status: 'failed',
+                message: 'Not authorized'
+            });
+        } 
+
+        const token = authHeader.split(" ")[1];
+
+        const decodedToken = await util.promisify(jwt.verify)(token, process.env.JWT_SECRET);
+        console.log(decodedToken);
+
+        req.user = decodedToken;
+        next();
+
+    } catch (error) {
+        res.status(401).json({ 
+            message: "Invalid or expired token" 
+        });
+    }
+
+}
+
+
+// To authorize user
+
+export const restrict = (role) => {
+
+    return (req, res, next) => {
+        if (req.user.role !== role){
+
+            res.status(403).json({
+                message: 'You do not permission to perform this action'
+            });
+        }
+
+        next();
+    }
+}
+
+
