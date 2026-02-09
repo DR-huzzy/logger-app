@@ -8,7 +8,7 @@ const signToken = (id, role) => {
     return jwt.sign(
         {id , role},
         process.env.JWT_SECRET,
-        {expiresIn: '2h'}
+        {expiresIn: '30m'}
     )
 }
 
@@ -18,10 +18,7 @@ const createSendResponse = (user, statusCode, res) => {
 
     res.status(statusCode).json({
         status: 'success',
-        token,
-        data: {
-            user
-        }
+        token
     })
 }
 
