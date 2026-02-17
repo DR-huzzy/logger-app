@@ -1,1 +1,17 @@
 use [ npx tsx test.js] to run js files instead of [ node test.js] (during imports of .ts files).
+
+steps to build a refresh endpoint
+
+1Verify refresh token exists
+
+2Check expiry
+
+3 Delete old refresh token
+
+4 Generate new access token
+
+5 Generate new refresh token
+
+6 Save new refresh token
+
+Return both
