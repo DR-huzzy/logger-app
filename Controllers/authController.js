@@ -27,10 +27,23 @@ const createSendResponse = async (user, statusCode, res) => {
         }
     })
 
+    //storing refresh token in a cookie
+
+    res.cookie("refreshToken", 
+                refreshToken,
+                {
+                    httpOnly: true,
+                    secure: false,
+                    sameSite: "strict",
+                    maxAge: 24 * 60 * 60 * 1000
+                }
+            
+            );
+
+
     res.status(statusCode).json({
         status: 'success',
-        accessToken,
-        refreshToken
+        accessToken
     })
 }
 
@@ -151,11 +164,12 @@ export const refreshToken = async (req, res, next) => {
     try {
         // Check if token exist
 
-        const { refreshToken } = req.body;
+        const { refreshToken } = req.cookies;
+        
         
         if (!refreshToken) {
 
-            return res.status(403).json({
+            return res.status(401).json({
                 status: "fail",
                 message: "Refresh token required"
             })
@@ -209,7 +223,7 @@ export const refreshToken = async (req, res, next) => {
 
         createSendResponse(storedToken.user, 200, res);
 
-        console.log(storedToken.user);
+        //console.log(storedToken.user);
 
     } catch (error) {
         res.status(500).json({
@@ -218,4 +232,4 @@ export const refreshToken = async (req, res, next) => {
         });
     }
 
-} ;
+} ; 
