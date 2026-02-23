@@ -184,6 +184,12 @@ export const refreshToken = async (req, res, next) => {
 
         if (!storedToken){
 
+             res.clearCookie("refreshToken", {
+                httpOnly: true,
+                secure: true,
+                sameSite: "strict"
+            });
+
             return res.status(403).json({
                 status: "fail",
                 message: "Invalid refresh token"
