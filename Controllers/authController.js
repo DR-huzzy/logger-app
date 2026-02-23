@@ -233,3 +233,59 @@ export const refreshToken = async (req, res, next) => {
     }
 
 } ; 
+
+
+
+export const logOut = async (req, res, next) => {
+
+    try {
+
+        // Verify refresh token exist in cookie
+
+        const { refreshToken } = req.cookies;
+        
+        if (!refreshToken){
+
+            return res.status(204).json({
+                message: "Logged out"
+            })
+
+        }
+
+        // check if refresh token exist in database
+
+        const existingToken = await prisma.refreshToken.findUnique({
+            where : { token: refreshToken }
+        }) 
+
+        // Delete token from database
+
+        if (existingToken){
+
+            await prisma.refreshToken.delete({
+                where : { token : refreshToken }
+            })
+        } 
+
+        // Clear Http only cookie
+
+        res.clearCookie("refreshToken", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "strict"
+        })
+
+
+        return res.status(204).json({
+            message: "logged out"
+        })
+
+        
+        
+    } catch (error) {
+        res.status(500).json({
+            status: "error",
+            message: "Could not log out"
+        })
+    }
+}

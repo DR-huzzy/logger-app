@@ -1,5 +1,5 @@
 import express from 'express';
-import { loginUser , refreshToken} from '../Controllers/authController';
+import { loginUser , refreshToken, logOut} from '../Controllers/authController';
 
 //auth router
 export const aRouter = express.Router();
@@ -9,6 +9,9 @@ aRouter.route('/login')
 
 aRouter.route('/refresh')
     .post(refreshToken);
+
+aRouter.route('/logout')
+    .post(logOut);
 
 
 
