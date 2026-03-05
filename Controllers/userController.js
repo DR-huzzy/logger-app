@@ -10,7 +10,7 @@ export const createUser = async (req , res , next) => {
         const {name, email, password} = req.body;
 
         // validate input
-        if (!name , !email, !password){
+        if (!name || !email || !password){
             return res.status(400).json({
                 status: "fail",
                 message: "Name , email and password are required"

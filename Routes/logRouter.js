@@ -1,6 +1,6 @@
 import express from 'express';
 import { createLog, retrieveLog, updateLog, deleteLog } from '../Controllers/logControllers';
-import { protect, restrict, requirePasscode , refreshToken} from '../Controllers/authController';
+import { protect, restrict, requirePasscode } from '../Controllers/authController';
 
 export const router = express.Router();
 
@@ -9,6 +9,6 @@ router.route('/')
     .post(protect, createLog)
     
 router.route('/:id')
-    .patch(updateLog)
+    .patch(protect, updateLog)
     .delete(protect, restrict('ADMIN'), requirePasscode, deleteLog);
 

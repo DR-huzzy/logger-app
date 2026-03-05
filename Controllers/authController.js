@@ -17,16 +17,17 @@ const createSendResponse = async (user, statusCode, res) => {
 
     const accessToken = signToken(user.id, user.role);
     const refreshToken = crypto.randomUUID();
+    const hashedToken = await bcrypt.hash(refreshToken, 10);
 
     // Save refresh token in DB
     await prisma.refreshToken.create({
         data: {
-            token: refreshToken,
+            token: hashedToken,
             userId: user.id,
             expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000)
         }
     })
-
+    
     //storing refresh token in a cookie
 
     res.cookie("refreshToken", 
@@ -66,10 +67,12 @@ export const loginUser =  async (req, res) => {
             where: { email: email }
         });
 
-        const isPasswordCorrect = await bcrypt.compare(password, user.password);
+        //check if the user exists before trying to compare the password.
+
+        //const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
 
-        if(!user || !isPasswordCorrect){
+        if(!user || !(await bcrypt.compare(password, user.password))){
             return res.status(401).json({
                 status: 'fail',
                 message: 'Incorrect password'
@@ -127,8 +130,8 @@ export const restrict = (role) => {
     return (req, res, next) => {
         if (req.user.role !== role){
 
-            res.status(403).json({
-                message: 'You do not permission to perform this action'
+            return res.status(403).json({
+                message: 'You do not have permission to perform this action'
             });
         }
 
@@ -177,10 +180,32 @@ export const refreshToken = async (req, res, next) => {
         }
 
         // Find in DB
-        const storedToken = await prisma.refreshToken.findUnique({
+        /* const storedToken = await prisma.refreshToken.findUnique({
             where : { token : refreshToken},
             include: { user : true}
-        })
+        }) */
+
+
+        // Fetch all non-expired tokens from the DB
+
+        const storedTokens = await prisma.refreshToken.findMany({
+            where: { expiresAt: { gt: new Date() } },
+            include: { user: true }
+        });
+        
+    
+
+        //Loop through each token and compare
+
+        const storedToken = await Promise.all(
+
+            storedTokens.map( async (dbToken) => {
+                const isMatch = await bcrypt.compare(refreshToken, dbToken.token);
+                return isMatch ? dbToken : null;
+            })
+
+        ).then(results => results.find(Boolean));
+
 
         if (!storedToken){
 
@@ -205,7 +230,7 @@ export const refreshToken = async (req, res, next) => {
         if (isExpired){
 
             await prisma.refreshToken.delete({
-                where: { token: refreshToken}
+                where: { id: storedToken.id }  // ← use the id from the found record
             })
 
             return res.status(403).json({
@@ -219,10 +244,10 @@ export const refreshToken = async (req, res, next) => {
         // Rotation [delete old token]
 
         await prisma.refreshToken.delete({
-            where: { token: refreshToken}
+            where: { id: storedToken.id }  // ← use the id from the found record
         });
 
-
+        
         // generate new access token
         // generate new refresh token
         // Save new tokens in db
@@ -252,24 +277,45 @@ export const logOut = async (req, res, next) => {
         
         if (!refreshToken){
 
-            return res.status(204).json({
-                message: "Logged out"
+            return res.status(200).json({
+                status: "Success",
+                message: "Logged out successfully"
             })
 
         }
 
         // check if refresh token exist in database
 
-        const existingToken = await prisma.refreshToken.findUnique({
+        /* const existingToken = await prisma.refreshToken.findUnique({
             where : { token: refreshToken }
-        }) 
+        })  */
+
+
+        // Fetch all non-expired tokens from the DB
+
+        const existingTokens = await prisma.refreshToken.findMany({
+            where: { expiresAt: { gt: new Date() } },
+            include: { user: true }
+        });
+
+
+        //Loop through each token and compare
+
+        const existingToken = await Promise.all(
+
+            existingTokens.map( async (dbToken) => {
+                const isMatch = await bcrypt.compare(refreshToken, dbToken.token);
+                return isMatch ? dbToken : null;
+            })
+
+        ).then(results => results.find(Boolean));
 
         // Delete token from database
 
         if (existingToken){
 
             await prisma.refreshToken.delete({
-                where : { token : refreshToken }
+                where : { id: existingToken.id }  // ← use the id from the found record
             })
         } 
 

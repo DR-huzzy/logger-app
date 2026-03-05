@@ -34,3 +34,12 @@ Storing refresh tokens hashed (like passwords)
 Tracking token families
 
 Detecting replay attempts
+
+
+Breaking this down further:
+
+storedTokens.map(async (dbToken) => {...}) — loops through every token record in the DB
+bcrypt.compare(refreshToken, dbToken.token) — compares the raw cookie token against the hashed DB token
+return isMatch ? dbToken : null — if it matches, return that DB record, otherwise return null
+Promise.all(...) — waits for ALL the comparisons to finish since they're async
+.then(results => results.find(Boolean)) — from the results array (which is a mix of token records and nulls), find the first one that isn't null
