@@ -48,6 +48,47 @@ export const retrieveLog = async (req, res, next) => {
 };
 
 
+//RETRIEVE A SINGLE LOG
+
+export const getLog = async (req, res, next) => {
+
+  try {
+
+    // get id from params
+    const { id } = req.params;
+
+    //Find log in db using id
+
+    const log = await prisma.logEntry.findUnique({
+      where: { id : Number(id)}
+    })
+
+    //If log not found , return 404
+
+    if (!log) {
+      return res.status(404).json({
+          status: "fail",
+          message: "Log not found"
+        });
+    }
+
+    //Return log entry
+
+    return res.status(200).json({
+      status: "success",
+      data: log
+    });
+
+
+  } catch (error) {
+      return res.status(500).json({
+        status: "error",
+        message: "Failed to retrieve log"
+      });
+  }
+}
+
+
 //UPDATE LOG ENTRY
 
 export const updateLog = async (req, res, next) => {
