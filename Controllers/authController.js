@@ -79,7 +79,7 @@ export const loginUser =  async (req, res) => {
             });
         }
 
-        createSendResponse(user, 200, res);
+        await createSendResponse(user, 200, res);
 
     } catch(error){
         res.status(500).json({ 
@@ -252,7 +252,7 @@ export const refreshToken = async (req, res, next) => {
         // generate new refresh token
         // Save new tokens in db
 
-        createSendResponse(storedToken.user, 200, res);
+        await createSendResponse(storedToken.user, 200, res);
 
         //console.log(storedToken.user);
 

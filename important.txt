@@ -43,3 +43,14 @@ bcrypt.compare(refreshToken, dbToken.token) — compares the raw cookie token ag
 return isMatch ? dbToken : null — if it matches, return that DB record, otherwise return null
 Promise.all(...) — waits for ALL the comparisons to finish since they're async
 .then(results => results.find(Boolean)) — from the results array (which is a mix of token records and nulls), find the first one that isn't null
+
+
+Steps to build a reset password endpoint
+
+1. Extract id from params and newPassword from body
+2. Validate that newPassword exists
+3. Check if user exists in DB using id
+4. If user not found, return 404
+5. Hash the new password
+6. Update the user's password in DB
+7. Return success response
