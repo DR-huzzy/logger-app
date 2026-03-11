@@ -54,3 +54,9 @@ Steps to build a reset password endpoint
 5. Hash the new password
 6. Update the user's password in DB
 7. Return success response
+
+
+
+Automation of restarting server (script)
+
+"start": "nodemon --exec npx tsx server.js"
