@@ -35,13 +35,43 @@ export const createLog = async (req, res, next) => {
 //RETRIEVE ALL LOG ENTRIES
 export const retrieveLog = async (req, res, next) => {
   try {
-    const logs = await prisma.logEntry.findMany();
+
+    //Extract filter parameters from query string
+
+    const { department, status, solvedBy, date } = req.query;
+
+    //Dynamically build a filter object
+   //based on whichever params were provided
+
+    const filters = {};
+
+    if (department) filters.department = department;
+    if (status) filters.status = status;
+    if (solvedBy) filters.solvedBy = solvedBy;
+
+    if (date) {
+      const start = new Date(date);
+      const end = new Date(date);
+
+      end.setHours(23,59,59,999);
+
+      filters.date = {
+        gte: start,
+        lte: end
+      };
+    }
+
+
+    const logs = await prisma.logEntry.findMany({
+      where: filters
+    });
 
     res.status(200).json({
       status: "success",
       results: logs.length,
       data: logs,
     });
+
   } catch (error) {
     res.status(500).json({ error });
   }

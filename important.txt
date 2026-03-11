@@ -45,6 +45,10 @@ Promise.all(...) — waits for ALL the comparisons to finish since they're async
 .then(results => results.find(Boolean)) — from the results array (which is a mix of token records and nulls), find the first one that isn't null
 
 
+
+
+
+
 Steps to build a reset password endpoint
 
 1. Extract id from params and newPassword from body
@@ -57,6 +61,34 @@ Steps to build a reset password endpoint
 
 
 
+
+
+
+
+
 Automation of restarting server (script)
 
 "start": "nodemon --exec npx tsx server.js"
+
+
+
+
+
+
+
+
+Filter/Search Logs
+
+- No new route needed, uses GET /api/v1/logs
+- Extract query params from req.query (department, status, solvedBy, date)
+- Dynamically build a filters object, only add a field if it was provided
+- For date, use gte (start of day) and lte (end of day) to capture all logs that day
+- Pass filters object into prisma findMany({ where: filters })
+
+how to test in postman:
+GET /api/v1/logs                             → all logs
+GET /api/v1/logs?status=SOLVED               → by status
+GET /api/v1/logs?department=IT               → by department
+GET /api/v1/logs?solvedBy=Alice              → by solver
+GET /api/v1/logs?date=2025-01-15             → by date
+GET /api/v1/logs?status=SOLVED&department=IT → combine filters
