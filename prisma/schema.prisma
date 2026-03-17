@@ -15,7 +15,7 @@ model User {
   role     Role
 
 
-   
+  logEntries    LogEntry[] 
   tokens   RefreshToken[]
      
   @@map("User")
@@ -35,6 +35,9 @@ model LogEntry {
   solvedBy          String
   status            String
   date              DateTime @default(now())
+  userId            Int?
+  user              User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
 
   @@map("log_entries")
 }

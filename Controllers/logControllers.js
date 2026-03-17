@@ -15,7 +15,15 @@ export const createLog = async (req, res, next) => {
     }
 
     const Log = await prisma.logEntry.create({
-      data: { department, personWithProblem, problem, solution, solvedBy, status }
+      data: { 
+        department,
+        personWithProblem, 
+        problem, 
+        solution, 
+        solvedBy, 
+        status,
+        userId: req.user.id 
+      }
     });
 
     res.status(201).json({
