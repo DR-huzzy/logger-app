@@ -1,0 +1,17 @@
+TO CREATE A NEW REACT PROJECT
+
+npm create vite@latest frontend -- --template react
+cd frontend
+npm install
+npm run dev
+
+npm create vite@latest
+
+npm create is a command that downloads and runs a project scaffolding tool
+vite@latest means use the latest version of vite's scaffolding tool
+
+PROJECT WOULD BE CREATED IN THE FRONTEND FOLDER
+
+--template react
+
+This tells vite which template to use
