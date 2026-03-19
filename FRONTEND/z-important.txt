@@ -15,3 +15,12 @@ PROJECT WOULD BE CREATED IN THE FRONTEND FOLDER
 --template react
 
 This tells vite which template to use
+
+
+
+
+
+
+
+axios — for making HTTP requests to your backend
+react-router-dom — for handling page navigation
