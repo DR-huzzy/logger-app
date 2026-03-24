@@ -60,3 +60,24 @@ So the relationship is:
 AuthProvider
     └── contains AuthContext.Provider
             └── which fills AuthContext with values
+
+
+
+
+
+
+
+
+
+Steps to build App.jsx
+
+1. Wrap the whole app with AuthProvider
+   so all components can access auth state
+2. Set up react-router-dom for navigation
+3. Create a ProtectedRoute component that
+   blocks unauthenticated users
+4. Create an AdminRoute component that
+   blocks non-admin users and redirects
+   them to their dashboard
+5. Define all routes and assign the correct
+   protection to each one
