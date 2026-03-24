@@ -81,3 +81,19 @@ Steps to build App.jsx
    them to their dashboard
 5. Define all routes and assign the correct
    protection to each one
+
+
+
+
+
+
+
+   Steps to build Login.jsx
+
+1. Create a form with email and password fields
+2. On submit, call the login function from useAuth
+3. If login succeeds, check the role and redirect
+   - ADMIN → /admin/dashboard
+   - IT_INTERN → /dashboard
+4. If login fails, show an error message
+5. Add dark mode support
