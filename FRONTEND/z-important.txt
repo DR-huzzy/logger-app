@@ -97,3 +97,27 @@ Steps to build App.jsx
    - IT_INTERN → /dashboard
 4. If login fails, show an error message
 5. Add dark mode support
+
+
+
+
+Steps to build Admin Dashboard
+
+1. Fetch all logs from the backend on page load
+2. Fetch all users from the backend on page load
+3. Display summary cards
+   (total logs, total users, solved, unsolved)
+4. Display a table of all log entries
+5. Each log row has a delete button
+6. Add Navbar at the top
+7. Add dark mode support
+
+
+
+Steps to build Navbar
+
+1. Show the app name/logo on the left
+2. Show the logged in user's role on the right
+3. Show a logout button
+4. Add dark mode toggle button
+5. On logout, redirect to login page
