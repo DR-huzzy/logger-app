@@ -121,3 +121,19 @@ Steps to build Navbar
 3. Show a logout button
 4. Add dark mode toggle button
 5. On logout, redirect to login page
+
+
+
+
+Steps to build Delete Confirmation Modal
+
+1. Create a modal component that accepts
+   isOpen, onClose, onConfirm as props
+2. Blur the background when modal is open
+3. Show a warning icon and message
+4. Have a passcode input field
+5. On confirm, pass the passcode back
+   to the parent component
+6. Close modal when X button is clicked
+7. Close modal when Cancel is clicked
+8. Add dark mode support
