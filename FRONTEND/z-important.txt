@@ -151,3 +151,18 @@ Steps to build Admin Users page
 6. Add a button to navigate to create user page
 7. Add Navbar at the top
 8. Add dark mode support
+
+
+
+
+
+
+Steps to build Create User page
+
+1. Create a form with name, email and password fields
+2. On submit, send request to backend with
+   admin token and passcode in headers
+3. If successful, redirect to admin users page
+4. If failed, show error message
+5. Add Navbar at the top
+6. Add dark mode support
