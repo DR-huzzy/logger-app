@@ -137,3 +137,17 @@ Steps to build Delete Confirmation Modal
 6. Close modal when X button is clicked
 7. Close modal when Cancel is clicked
 8. Add dark mode support
+
+
+
+
+Steps to build Admin Users page
+
+1. Fetch all users from the backend on page load
+2. Display users in a clean card or table layout
+3. Each user shows name, email and role
+4. Each user has a reset password button
+5. Each user has a delete button (with confirmation)
+6. Add a button to navigate to create user page
+7. Add Navbar at the top
+8. Add dark mode support
