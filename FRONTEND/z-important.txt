@@ -166,3 +166,19 @@ Steps to build Create User page
 4. If failed, show error message
 5. Add Navbar at the top
 6. Add dark mode support
+
+
+
+
+Steps to build CreateLog page
+
+1. Create a form with all log entry fields
+   (department, personWithProblem, problem,
+   solution, solvedBy, status)
+2. On submit, send request to backend
+   with access token in headers
+3. If successful, redirect to correct
+   dashboard based on role
+4. If failed, show error message
+5. Add Navbar at the top
+6. Add dark mode support
