@@ -1,5 +1,5 @@
 import express from 'express';
-import { createLog, retrieveLog, getLog ,updateLog, deleteLog } from '../Controllers/logControllers';
+import { createLog, retrieveLog, getLog ,updateLog, getLogsByUser,deleteLog } from '../Controllers/logControllers';
 import { protect, restrict, requirePasscode } from '../Controllers/authController';
 
 export const router = express.Router();
@@ -7,6 +7,10 @@ export const router = express.Router();
 router.route('/')
     .get(protect, retrieveLog)
     .post(protect, createLog)
+
+router.route('/user/:id')
+    .get(protect, getLogsByUser);
+
     
 router.route('/:id')
     .get(protect, getLog)

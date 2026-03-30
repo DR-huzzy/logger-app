@@ -29,7 +29,7 @@ const Login = () => {
             if (role === "ADMIN") {
                 navigate("/admin/dashboard");
             } else {
-                navigate("dashboard");
+                navigate("/dashboard");
             }
 
         }catch (err) {

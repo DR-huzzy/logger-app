@@ -182,3 +182,19 @@ Steps to build CreateLog page
 4. If failed, show error message
 5. Add Navbar at the top
 6. Add dark mode support
+
+
+
+
+
+
+Steps to build Intern Dashboard
+
+1. Fetch only the logged in intern's logs
+   from the backend on page load
+2. Display summary cards
+   (total logs, solved, unsolved)
+3. Display a table of the intern's log entries
+4. Add a button to create a new log entry
+5. Add Navbar at the top
+6. Add dark mode support

@@ -159,6 +159,43 @@ export const updateLog = async (req, res, next) => {
 };
 
 
+//RETRIEVE LOG BY USER
+
+export const getLogsByUser = async (req, res, next) => {
+    try {
+
+        const { id } = req.params;
+
+        const user = await prisma.user.findUnique({
+            where: { id: Number(id) }
+        });
+
+        if (!user) {
+            return res.status(404).json({
+                status: "fail",
+                message: "User not found"
+            });
+        }
+
+        const logs = await prisma.logEntry.findMany({
+            where: { userId: Number(id) }
+        });
+
+        return res.status(200).json({
+            status: "success",
+            results: logs.length,
+            data: logs
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            status: "error",
+            message: "Failed to retrieve logs"
+        });
+    }
+}
+
+
 //DELETE LOG ENTRY
 
 export const deleteLog = async (req, res, next) => {
