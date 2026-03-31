@@ -111,6 +111,7 @@ const InternDashboard = () => {
                                     <th className="px-4 py-3 text-left">Solution</th>
                                     <th className="px-4 py-3 text-left">Status</th>
                                     <th className="px-4 py-3 text-left">Date</th>
+                                    <th className="px-4 py-3 text-left">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -138,6 +139,15 @@ const InternDashboard = () => {
                                             </td>
                                             <td className="px-4 py-3 text-gray-700 dark:text-gray-300">
                                                 {new Date(log.date).toLocaleDateString()}
+                                            </td>
+
+                                            <td className="px-4 py-3">
+                                                <button
+                                                    onClick={() => navigate(`/logs/edit/${log.id}`)}
+                                                    className="border border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 hover:bg-blue-50 dark:hover:bg-gray-700 text-xs px-3 py-1 rounded transition duration-200"
+                                                >
+                                                    Edit
+                                                </button>
                                             </td>
                                         </tr>
                                     ))

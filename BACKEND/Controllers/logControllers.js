@@ -133,21 +133,38 @@ export const updateLog = async (req, res, next) => {
 
   try {
 
-    const { id } = req.params;
+     const { id } = req.params;
 
-    const updateLog = await prisma.logEntry.update({
+        const log = await prisma.logEntry.findUnique({
+            where: { id: Number(id) }
+        });
 
-        where: { id: Number(id) },
-        data: req.body,
-
-    });
-
-    res.status(200).json({
-        status: 'success',
-        data: {
-            updateLog,
+        if (!log) {
+            return res.status(404).json({
+                status: "fail",
+                message: "Log not found"
+            });
         }
-    })
+
+        // Only the owner or admin can update
+        if (log.userId !== req.user.id && req.user.role !== "ADMIN") {
+            return res.status(403).json({
+                status: "fail",
+                message: "You can only update your own logs"
+            });
+        }
+
+        const { department, personWithProblem, problem, solution, solvedBy, status } = req.body;
+
+        const updatedLog = await prisma.logEntry.update({
+            where: { id: Number(id) },
+            data: { department, personWithProblem, problem, solution, solvedBy, status }
+        });
+
+        return res.status(200).json({
+            status: "success",
+            data: updatedLog
+        });
 
 
   } catch (error) {

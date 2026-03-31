@@ -14,6 +14,7 @@ import SingleLog from './pages/admin/SingleLog';
 
 import InternDashboard from "./pages/intern/Dashboard";
 import CreateLog from "./pages/intern/CreateLog";
+import EditLog from "./pages/intern/EditLog";
 
 
 
@@ -60,6 +61,7 @@ const App = () => {
           {/* Intern routes */}
           <Route path="/dashboard" element={ <ProtectedRoute> <InternDashboard /> </ProtectedRoute> }/>
           <Route path="/logs/create" element={ <ProtectedRoute> <CreateLog /> </ProtectedRoute> }/>
+          <Route path="/logs/edit/:id" element={ <ProtectedRoute> <EditLog /> </ProtectedRoute> } />
 
           {/* Redirect root to login */}
           <Route path="/" element={<Navigate to="/login" />} />
