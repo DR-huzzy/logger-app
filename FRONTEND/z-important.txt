@@ -198,3 +198,15 @@ Steps to build Intern Dashboard
 4. Add a button to create a new log entry
 5. Add Navbar at the top
 6. Add dark mode support
+
+
+
+
+Steps to build SingleLog page
+
+1. Extract log id from the URL params
+2. Fetch the single log entry from backend
+3. Display all log details in a clean layout
+4. Add a back button to return to dashboard
+5. Add Navbar at the top
+6. Add dark mode support
