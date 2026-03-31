@@ -15,7 +15,7 @@ const signToken = (id, role, name) => {
 
 const createSendResponse = async (user, statusCode, res) => {
 
-    const accessToken = signToken(user.id, user.role);
+    const accessToken = signToken(user.id, user.role, user.name);
     const refreshToken = crypto.randomUUID();
     const hashedToken = await bcrypt.hash(refreshToken, 10);
 
