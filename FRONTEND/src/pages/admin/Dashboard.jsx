@@ -255,7 +255,10 @@ const AdminDashboard = () => {
 
                                             <td className="px-4 py-3">
                                                 <button
-                                                    onClick={() => openDeleteModal(log.id)}
+                                                    onClick={ (e) => {
+                                                        e.stopPropagation();
+                                                        openDeleteModal(log.id);
+                                                    }}
                                                     className="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-1 rounded transition duration-200"
                                                 >
                                                     Delete
