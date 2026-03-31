@@ -220,8 +220,12 @@ const AdminDashboard = () => {
 
                                         logs.map((log) => (
 
-
-                                            <tr key={log.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150 divide-x divide-gray-200 dark:divide-gray-700">
+                                            
+                                            <tr 
+                                                key={log.id}
+                                                onClick={() => navigate(`/admin/logs/${log.id}`)}
+                                                className="hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150 divide-x divide-gray-200 dark:divide-gray-600 cursor-pointer"
+                                            >
                                                 
                                             <td className="px-4 py-3 text-gray-700 dark:text-gray-300">{log.department}</td>
                                             <td className="px-4 py-3 text-gray-700 dark:text-gray-300">{log.personWithProblem}</td>
