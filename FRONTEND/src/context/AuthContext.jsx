@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
         const decoded = JSON.parse(atob(accessToken.split(".")[1]));
 
         setAccessToken(accessToken);
-        setUser({id : decoded.id , role: decoded.role})
+        setUser({id : decoded.id , role: decoded.role , name: decoded.name})
 
         return decoded.role; // return role so we can redirect accordingly
     }
@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
             const decoded = JSON.parse(atob(accessToken.split(".")[1]));
 
             setAccessToken(accessToken);
-            setUser({ id: decoded.id, role: decoded.role });
+            setUser({ id: decoded.id, role: decoded.role, name: decoded.name });
 
         } catch (error) {
             

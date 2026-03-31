@@ -5,9 +5,9 @@ import crypto from "crypto";
 import { prisma } from '../lib/prisma';
 
 
-const signToken = (id, role) => {
+const signToken = (id, role, name) => {
     return jwt.sign(
-        {id , role},
+        {id , role, name},
         process.env.JWT_SECRET,
         {expiresIn: process.env.LOGIN_EXPIRES}
     )
