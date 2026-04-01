@@ -16,6 +16,12 @@ const AdminDashboard = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
+    const [filters, setFilters] = useState({
+            department: "",
+            status: "",
+            date: ""
+        });
+
 
     /* delete Modal */
     const [modalOpen, setModalOpen] = useState(false);
@@ -63,6 +69,22 @@ const AdminDashboard = () => {
     const totalUsers = users.length;
     const solvedLogs = logs.filter(log => log.status === "SOLVED").length;
     const unsolvedLogs = logs.filter(log => log.status !== "SOLVED").length;
+
+
+    // Filter logs based on filter state  ← ADD IT HERE
+    
+    const filteredLogs = logs.filter(log => {
+    
+        const matchDepartment = filters.department === "" ||
+        log.department.toLowerCase().includes(filters.department.toLowerCase());
+    
+        const matchStatus = filters.status === "" || log.status === filters.status;
+    
+        const matchDate = filters.date === "" ||
+        new Date(log.date).toLocaleDateString("en-CA") === filters.date;
+
+        return matchDepartment && matchStatus && matchDate;
+    });
 
 
 
@@ -157,6 +179,38 @@ const AdminDashboard = () => {
 
 
 
+                {/* Filter bar */}
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-4 flex flex-wrap gap-3">
+                    <input
+                        type="text"
+                        placeholder="Filter by department"
+                        value={filters.department}
+                        onChange={(e) => setFilters({ ...filters, department: e.target.value })}
+                        className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <select
+                        value={filters.status}
+                        onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+                        className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                        <option value="">All Statuses</option>
+                        <option value="SOLVED">Solved</option>
+                        <option value="UNSOLVED">Unsolved</option>
+                        <option value="PENDING">Pending</option>
+                    </select>
+                    <input
+                        type="date"
+                        value={filters.date}
+                        onChange={(e) => setFilters({ ...filters, date: e.target.value })}
+                        className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <button
+                        onClick={() => setFilters({ department: "", status: "", date: "" })}
+                        className="px-3 py-2 border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-200"
+                    >
+                        Clear
+                    </button>
+                </div>
 
 
 
@@ -205,7 +259,7 @@ const AdminDashboard = () => {
 
                                 {   
 
-                                    logs.length === 0 ? 
+                                    filteredLogs.length === 0 ? 
                                     (
 
                                         <tr>
@@ -218,7 +272,7 @@ const AdminDashboard = () => {
                                     
                                     (
 
-                                        logs.map((log) => (
+                                        filteredLogs.map((log) => (
 
                                             
                                             <tr 
