@@ -210,3 +210,5 @@ Steps to build SingleLog page
 4. Add a back button to return to dashboard
 5. Add Navbar at the top
 6. Add dark mode support
+
+v1 done
