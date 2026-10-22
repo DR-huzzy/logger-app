@@ -7,6 +7,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "prisma generate",
     "start": "npx tsx server.js",
     "dev": "nodemon --exec npx tsx server.js"
   },
