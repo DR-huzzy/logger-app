@@ -19,7 +19,8 @@ app.use(cookieParser());
 
 // Allow requests from the frontend
 app.use(cors({
-    origin: 'http://localhost:5173', // Vite's default port
+    //origin: 'http://localhost:5173', // Vite's default port
+    origin: 'https://logger-app-henna.vercel.app',
     credentials: true, // Allow cookies to be sent
 }));
 
