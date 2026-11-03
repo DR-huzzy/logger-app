@@ -34,8 +34,8 @@ const createSendResponse = async (user, statusCode, res) => {
                 refreshToken,
                 {
                     httpOnly: true,
-                    secure: false,
-                    sameSite: "strict",
+                    secure: true,
+                    sameSite: "none",
                     maxAge: 24 * 60 * 60 * 1000
                 }
             
@@ -144,7 +144,7 @@ export const restrict = (role) => {
 export const requirePasscode = (req, res , next ) => {
 
     const passcode = req.headers["x-admin-passcode"];
-
+    // change process.env when deploying to a cloud service
     if (!passcode || passcode !== process.env.ADMIN_PASSCODE){
 
         return res.status(401).json({
@@ -212,7 +212,7 @@ export const refreshToken = async (req, res, next) => {
              res.clearCookie("refreshToken", {
                 httpOnly: true,
                 secure: true,
-                sameSite: "strict"
+                sameSite: "none"
             });
 
             return res.status(403).json({
@@ -324,7 +324,7 @@ export const logOut = async (req, res, next) => {
         res.clearCookie("refreshToken", {
             httpOnly: true,
             secure: true,
-            sameSite: "strict"
+            sameSite: "none"
         })
 
 
