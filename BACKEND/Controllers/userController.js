@@ -164,6 +164,11 @@ export const deleteUser = async (req, res, next ) => {
       });
     }
 
+    // Delete related refresh tokens first
+      await prisma.refreshToken.deleteMany({
+        where: { userId: Number(id) }
+      });
+
 
     // Delete user from db
 
