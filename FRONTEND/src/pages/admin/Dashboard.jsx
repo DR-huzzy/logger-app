@@ -194,9 +194,9 @@ const AdminDashboard = () => {
                         className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                         <option value="">All Statuses</option>
-                        <option value="SOLVED">Pending</option>
-                        <option value="UNSOLVED">In Progress</option>
-                        <option value="PENDING">Resolved</option>
+                        <option value="PENDING">Pending</option>
+                        <option value="IN_PROGRESS">In Progress</option>
+                        <option value="RESOLVED">Resolved</option>
                     </select>
                     <input
                         type="date"

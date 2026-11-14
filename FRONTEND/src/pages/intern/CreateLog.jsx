@@ -158,7 +158,7 @@ const CreateLog = () => {
                             />
                         </div>
 
-                        <div>
+                        {/* <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                 Status
                             </label>
@@ -172,7 +172,7 @@ const CreateLog = () => {
                                 <option value="UNSOLVED">In Progress</option>
                                 <option value="PENDING">Resolved</option>
                             </select>
-                        </div>
+                        </div> */}
 
                         <div className="flex gap-3 pt-2">
                             <button
