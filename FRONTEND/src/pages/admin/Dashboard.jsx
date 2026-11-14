@@ -194,9 +194,9 @@ const AdminDashboard = () => {
                         className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                         <option value="">All Statuses</option>
-                        <option value="SOLVED">Solved</option>
-                        <option value="UNSOLVED">Unsolved</option>
-                        <option value="PENDING">Pending</option>
+                        <option value="SOLVED">Pending</option>
+                        <option value="UNSOLVED">In Progress</option>
+                        <option value="PENDING">Resolved</option>
                     </select>
                     <input
                         type="date"
@@ -292,7 +292,7 @@ const AdminDashboard = () => {
 
 
                                                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                                                    log.status === "SOLVED"
+                                                    log.status === "RESOLVED"
                                                         ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
                                                         : "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300"
                                                 }`}>
