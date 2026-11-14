@@ -87,15 +87,27 @@ const CreateLog = () => {
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                 Department
                             </label>
-                            <input
-                                type="text"
+                            <select
                                 name="department"
                                 value={formData.department}
                                 onChange={handleChange}
-                                placeholder="e.g. IT, Workshop, Admin"
                                 required
                                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
+                            >
+                                <option value="">Select department</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Accounts">Accounts</option>
+                                <option value="HR">HR</option>
+                                <option value="IT">IT</option>
+                                <option value="Logistics">Logistics</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Parts">Parts</option>
+                                <option value="Service R">Service Reception</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Tender">Tender</option>
+                                <option value="Workshop">Workshop</option>
+                                
+                            </select>
                         </div>
 
                         <div>
@@ -128,7 +140,7 @@ const CreateLog = () => {
                             />
                         </div>
 
-                        <div>
+                        {/* <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                 Solution
                             </label>
@@ -141,7 +153,7 @@ const CreateLog = () => {
                                 rows={3}
                                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                             />
-                        </div>
+                        </div> */}
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
