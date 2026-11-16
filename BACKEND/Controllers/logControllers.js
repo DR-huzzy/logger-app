@@ -5,9 +5,9 @@ import { prisma } from "../lib/prisma";
 export const createLog = async (req, res, next) => {
   try {
 
-    const { department , personWithProblem, problem, solvedBy, status} = req.body;
+    const { department , personWithProblem, problem, solution, solvedBy, status} = req.body;
 
-    if (!department || !personWithProblem || !problem || !solvedBy || !status) {
+    if (!department || !personWithProblem || !problem || !solution|| !solvedBy || !status) {
       return res.status(400).json({
         status: "fail",
         message: "All fields are required"
